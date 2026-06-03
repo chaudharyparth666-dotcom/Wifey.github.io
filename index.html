@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Wifey ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Updated Background: Soft pink gradient */
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ----- Background Elements ----- */
+        
+        /* Floating Balloons */
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: floatUpBalloon linear infinite;
+            z-index: 1;
+        }
+        
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 22px;
+            width: 2px;
+            height: 50px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        @keyframes floatUpBalloon {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-120vh) rotate(20deg); }
+        }
+
+        /* Scattered Chocolates (Background) */
+        .bg-chocolate {
+            position: absolute;
+            font-size: 25px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        /* ----- Main Window ----- */
+        .window-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(238, 156, 167, 0.5);
+            text-align: center;
+            z-index: 10; /* Ensures window is above background items */
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+        }
+
+        h1 {
+            color: #d63384;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #ff4d6d, #d63384);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+        }
+
+        #noBtn {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #noBtn:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        /* ----- Success Elements ----- */
+
+        /* Floating Hearts (Released on Yes) */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: floatUpHeart 4s ease-in forwards;
+            z-index: 15; /* Appeas on top of everything */
+        }
+
+        @keyframes floatUpHeart {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-120vh) scale(1.5) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Big Chocolate explosion on Yes */
+        .choco-explosion {
+            position: absolute;
+            font-size: 40px;
+            z-index: 14;
+            animation: explode 2s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Static Background Decorations -->
+    <!-- Creating 4 balloons with different colors/speeds -->
+    <div class="balloon" style="left: 10%; background-color: #ffc107; animation-duration: 15s;"></div>
+    <div class="balloon" style="left: 30%; background-color: #ff6b6b; animation-duration: 12s; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 70%; background-color: #4dadf7; animation-duration: 18s;"></div>
+    <div class="balloon" style="left: 85%; background-color: #cc5de8; animation-duration: 14s; animation-delay: 4s;"></div>
+
+    <!-- Scattered background chocolates -->
+    <div class="bg-chocolate" style="top: 15%; left: 15%;">🍫</div>
+    <div class="bg-chocolate" style="top: 20%; right: 20%;">🍬</div>
+    <div class="bg-chocolate" style="bottom: 15%; left: 25%;">🍩</div>
+    <div class="bg-chocolate" style="bottom: 25%; right: 10%;">🍫</div>
+
+    <!-- Main Interactive Window -->
+    <div class="window-card" id="mainCard">
+        <h1 id="questionText">Are you my wife?</h1>
+        <div class="buttons" id="buttonContainer">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionText = document.getElementById('questionText');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const mainCard = document.getElementById('mainCard');
+
+        // Logic if she clicks No
+        noBtn.addEventListener('click', () => {
+            alert("Try again... 😉");
+        });
+
+        // Logic if she clicks Yes
+        yesBtn.addEventListener('click', () => {
+            // Change the text, hide buttons, pop the window slightly
+            questionText.innerHTML = "Thank you wifey... 🍫❤️";
+            questionText.style.color = "#856404"; // Chocolate brown color
+            buttonContainer.style.display = 'none';
+            mainCard.style.transform = 'scale(1.05)';
+            mainCard.style.borderColor = "#ffeeba";
+            
+            // Release the celebration!
+            releaseCelebration();
+        });
+
+        function releaseCelebration() {
+            // 1. Release Hearts
+            for(let i = 0; i < 40; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+            // Keep hearts drifting slowly afterwards
+            setInterval(createHeart, 300);
+
+            // 2. Release Chocolate Explosion
+            for(let i = 0; i < 15; i++) {
+                createChocolateExplosion();
+            }
+        }
+
+        // Creates floating red hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            // Randomly pick between red heart and chocolate emoji
+            heart.innerHTML = Math.random() > 0.3 ? '❤️' : '💖';
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        // Creates chocolates that burst out from the center
+        function createChocolateExplosion() {
+            const choco = document.createElement('div');
+            choco.classList.add('choco-explosion');
+            
+            // Randomly choose a sweet treat
+            const treats = ['🍫', '🍬', '🍩', '🍪'];
+            choco.innerHTML = treats[Math.floor(Math.random() * treats.length)];
+            
+            // Set random explosion direction using CSS variables
+            const xVal = (Math.random() - 0.5) * 600 + 'px';
+            const yVal = (Math.random() - 0.5) * 600 + 'px';
+            choco.style.setProperty('--x', xVal);
+            choco.style.setProperty('--y', yVal);
+            
+            // Center them initially
+            choco.style.left = '50%';
+            choco.style.top = '50%';
+            
+            document.body.appendChild(choco);
+
+            setTimeout(() => { choco.remove(); }, 2000);
+        }
+    </script>
+</body>
+</html>
