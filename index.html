@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +13,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Updated Background: Soft pink gradient */
             background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             position: relative;
         }
 
-        /* ----- Background Elements ----- */
-        
-        /* Floating Balloons */
+        /* Floating Background Decorations */
         .balloon {
             position: absolute;
             bottom: -150px;
@@ -32,7 +30,6 @@
             animation: floatUpBalloon linear infinite;
             z-index: 1;
         }
-        
         .balloon::after {
             content: "";
             position: absolute;
@@ -42,13 +39,11 @@
             height: 50px;
             background: rgba(255,255,255,0.5);
         }
-
         @keyframes floatUpBalloon {
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(-120vh) rotate(20deg); }
         }
 
-        /* Scattered Chocolates (Background) */
         .bg-chocolate {
             position: absolute;
             font-size: 25px;
@@ -56,32 +51,46 @@
             z-index: 1;
         }
 
-        /* ----- Main Window ----- */
+        /* Main Window Card */
         .window-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(238, 156, 167, 0.5);
             text-align: center;
-            z-index: 10; /* Ensures window is above background items */
+            z-index: 10;
             max-width: 400px;
             width: 90%;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             backdrop-filter: blur(5px);
             border: 2px solid white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Image Styling */
+        #bearImage {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 10px;
         }
 
         h1 {
             color: #d63384;
             margin-bottom: 30px;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
+            line-height: 1.4;
         }
 
         .buttons {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             gap: 20px;
+            width: 100%;
         }
 
         button {
@@ -92,6 +101,7 @@
             border-radius: 25px;
             cursor: pointer;
             transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            min-width: 100px;
         }
 
         #yesBtn {
@@ -99,10 +109,8 @@
             color: white;
             box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
         }
-
         #yesBtn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
         }
 
         #noBtn {
@@ -110,61 +118,50 @@
             color: #6c757d;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
-
         #noBtn:hover {
             background-color: #e9ecef;
             color: #333;
         }
 
-        /* ----- Success Elements ----- */
-
-        /* Floating Hearts (Released on Yes) */
+        /* Success Animations */
         .heart {
             position: absolute;
             bottom: -50px;
             font-size: 24px;
             animation: floatUpHeart 4s ease-in forwards;
-            z-index: 15; /* Appeas on top of everything */
+            z-index: 15;
         }
-
         @keyframes floatUpHeart {
             0% { transform: translateY(0) scale(1); opacity: 1; }
             100% { transform: translateY(-120vh) scale(1.5) rotate(360deg); opacity: 0; }
         }
         
-        /* Big Chocolate explosion on Yes */
         .choco-explosion {
             position: absolute;
             font-size: 40px;
             z-index: 14;
             animation: explode 2s ease-out forwards;
         }
-        
         @keyframes explode {
             0% { transform: translate(0, 0) scale(1); opacity: 1; }
             100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Static Background Decorations -->
-    <!-- Creating 4 balloons with different colors/speeds -->
     <div class="balloon" style="left: 10%; background-color: #ffc107; animation-duration: 15s;"></div>
     <div class="balloon" style="left: 30%; background-color: #ff6b6b; animation-duration: 12s; animation-delay: 2s;"></div>
     <div class="balloon" style="left: 70%; background-color: #4dadf7; animation-duration: 18s;"></div>
     <div class="balloon" style="left: 85%; background-color: #cc5de8; animation-duration: 14s; animation-delay: 4s;"></div>
-
-    <!-- Scattered background chocolates -->
     <div class="bg-chocolate" style="top: 15%; left: 15%;">🍫</div>
     <div class="bg-chocolate" style="top: 20%; right: 20%;">🍬</div>
     <div class="bg-chocolate" style="bottom: 15%; left: 25%;">🍩</div>
     <div class="bg-chocolate" style="bottom: 25%; right: 10%;">🍫</div>
 
-    <!-- Main Interactive Window -->
     <div class="window-card" id="mainCard">
-        <h1 id="questionText">Are you my wife?</h1>
+        <img id="bearImage" src="https://media.tenor.com/ef356oYwVfQAAAAi/tkthao219-bubududu.gif" alt="Cute Bear">
+        <h1 id="questionText">Will you be my wifey?</h1>
         <div class="buttons" id="buttonContainer">
             <button id="yesBtn">Yes</button>
             <button id="noBtn">No</button>
@@ -175,78 +172,89 @@
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const questionText = document.getElementById('questionText');
+        const bearImage = document.getElementById('bearImage');
         const buttonContainer = document.getElementById('buttonContainer');
         const mainCard = document.getElementById('mainCard');
 
-        // Logic if she clicks No
+        let noClickCount = 0;
+
+        // The logic for when she clicks "No"
         noBtn.addEventListener('click', () => {
-            alert("betu nii...say yes 😉");
+            noClickCount++;
+
+            if (noClickCount === 1) {
+                // First No
+                questionText.innerHTML = "Betu haa kr do 🥺";
+                // Sad bear GIF
+                bearImage.src = "https://media.tenor.com/T0a3fK-5v6cAAAAi/tkthao219-bubududu.gif";
+            } 
+            else if (noClickCount === 2) {
+                // Second No
+                questionText.innerHTML = "Bhaukaal me ho full bas no kare jaa rhi ho 😤";
+                // Angry/Pouting bear GIF
+                bearImage.src = "https://media.tenor.com/F3KxG9E_2Z8AAAAi/tkthao219-bubududu.gif";
+            } 
+            else if (noClickCount === 3) {
+                // Third No - Hide the No button!
+                questionText.innerHTML = "Ab to haa karni hi padegi... 😉🔫";
+                // Bear with a gun/bossy GIF
+                bearImage.src = "https://media.tenor.com/o2K8B-y6Vd8AAAAi/tkthao219-bubududu.gif";
+                noBtn.style.display = 'none'; // Removes the No button entirely
+                
+                // Make the Yes button bigger to emphasize it
+                yesBtn.style.transform = 'scale(1.2)';
+                yesBtn.style.marginTop = '10px';
+            }
         });
 
-        // Logic if she clicks Yes
+        // The logic for when she clicks "Yes"
         yesBtn.addEventListener('click', () => {
-            // Change the text, hide buttons, pop the window slightly
             questionText.innerHTML = "Thank you wifey... 🍫❤️";
-            questionText.style.color = "#856404"; // Chocolate brown color
+            questionText.style.color = "#856404"; 
             buttonContainer.style.display = 'none';
             mainCard.style.transform = 'scale(1.05)';
             mainCard.style.borderColor = "#ffeeba";
             
-            // Release the celebration!
+            // Happy kissing bears GIF!
+            bearImage.src = "https://media.tenor.com/yB1b6mZ5qhcAAAAi/tkthao219-bubududu.gif";
+            
             releaseCelebration();
         });
 
         function releaseCelebration() {
-            // 1. Release Hearts
             for(let i = 0; i < 40; i++) {
                 setTimeout(createHeart, i * 50);
             }
-            // Keep hearts drifting slowly afterwards
             setInterval(createHeart, 300);
 
-            // 2. Release Chocolate Explosion
             for(let i = 0; i < 15; i++) {
                 createChocolateExplosion();
             }
         }
 
-        // Creates floating red hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            // Randomly pick between red heart and chocolate emoji
             heart.innerHTML = Math.random() > 0.3 ? '❤️' : '💖';
-            
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            
             document.body.appendChild(heart);
-
             setTimeout(() => { heart.remove(); }, 5000);
         }
 
-        // Creates chocolates that burst out from the center
         function createChocolateExplosion() {
             const choco = document.createElement('div');
             choco.classList.add('choco-explosion');
-            
-            // Randomly choose a sweet treat
             const treats = ['🍫', '🍬', '🍩', '🍪'];
             choco.innerHTML = treats[Math.floor(Math.random() * treats.length)];
-            
-            // Set random explosion direction using CSS variables
             const xVal = (Math.random() - 0.5) * 600 + 'px';
             const yVal = (Math.random() - 0.5) * 600 + 'px';
             choco.style.setProperty('--x', xVal);
             choco.style.setProperty('--y', yVal);
-            
-            // Center them initially
             choco.style.left = '50%';
             choco.style.top = '50%';
-            
             document.body.appendChild(choco);
-
             setTimeout(() => { choco.remove(); }, 2000);
         }
     </script>
